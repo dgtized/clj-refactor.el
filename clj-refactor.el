@@ -248,15 +248,6 @@ at `cider-jack-in' time."
   :type 'boolean
   :safe #'booleanp)
 
-;; TODO: deprecated by `cljr-slash-uses-suggest-libspec'
-(defcustom cljr-assume-language-context nil
-  "If set to `clj' or `cljs',
-clj-refactor will use that value in situations where the language context is ambiguous.
-
-If set to nil, a popup will be created in each ambiguous case asking user to choose language context."
-  :type 'string
-  :safe #'stringp)
-
 (defcustom cljr-libspec-whitelist
   '("^cljsns" "^slingshot.test" "^monger.joda-time" "^monger.json")
   "List of regexes to match against libspec names which shouldn't be pruned.
@@ -1932,8 +1923,6 @@ but removes # in front of function literals and sets."
         (cond
          ((cljr--beginning-of-reader-conditional)
           (string-equal (cljr--reader-conditional-context) ":clj"))
-         (cljr-assume-language-context
-          (string-equal cljr-assume-language-context "clj"))
          (t
           (string-equal (cljr--prompt-user-for "Language context at point? "
                                                (list "clj" "cljs"))
@@ -4428,6 +4417,7 @@ If injecting the dependencies is not preferred set
 (define-obsolete-function-alias 'cljr-cycle-privacy 'clojure-cycle-privacy "2.3.0")
 (define-obsolete-function-alias 'cljr-cycle-if 'clojure-cycle-if "2.3.0")
 (make-obsolete 'cljr-cycle-coll "reworked into convert collection to list, quoted list, map, vector, set in Clojure mode." "2.3.0")
+(make-obsolete-variable 'cljr-assume-language-context "Dynamically calculated with `cljr--language-context-at-point'." "3.13.0")
 
 ;; ------ minor mode -----------
 ;;;###autoload

@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Deprecate `cljr-assume-language-context` defcustom.
 - [Upgrade refactor-nrepl](https://github.com/clojure-emacs/refactor-nrepl/blob/v3.11.0/CHANGELOG.md#3110).
 
 ## 3.12.0
