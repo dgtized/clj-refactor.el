@@ -1971,19 +1971,10 @@ context. Valid outputs include, but are not limited to `:clj',
     (error nil)))
 
 ;; TODO: deprecated by `cljr-slash-uses-suggest-libspec'
-(defcustom cljr-suggest-namespace-aliases t
-  "If `t', `namespace-aliases' and `cljr-slash' will take into account suggested namespace aliases,
-following this convention: `https://stuartsierra.com/2015/05/10/clojure-namespace-aliases'."
-  :group 'cljr
-  :type 'boolean)
-
-;; TODO: deprecated by `cljr-slash-uses-suggest-libspec'
 (defun cljr--call-middleware-for-namespace-aliases ()
   (thread-first "namespace-aliases"
                 cljr--ensure-op-supported
-                (cljr--create-msg "suggest" (if cljr-suggest-namespace-aliases
-                                                "true"
-                                              "false"))
+                (cljr--create-msg "suggest" "true")
                 (cljr--call-middleware-sync "namespace-aliases")
                 parseedn-read-str))
 
@@ -4418,6 +4409,7 @@ If injecting the dependencies is not preferred set
 (define-obsolete-function-alias 'cljr-cycle-if 'clojure-cycle-if "2.3.0")
 (make-obsolete 'cljr-cycle-coll "reworked into convert collection to list, quoted list, map, vector, set in Clojure mode." "2.3.0")
 (make-obsolete-variable 'cljr-assume-language-context "Dynamically calculated with `cljr--language-context-at-point'." "3.13.0")
+(make-obsolete-variable 'cljr-suggest-namespace-aliases "Suggested namespace aliases are defined with `cljr-magic-require-namespaces'." "3.13.0")
 
 ;; ------ minor mode -----------
 ;;;###autoload

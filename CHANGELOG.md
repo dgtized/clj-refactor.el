@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Deprecate `cljr-suggest-namespace-aliases` defcustom.
 - Deprecate `cljr-assume-language-context` defcustom.
 - [Upgrade refactor-nrepl](https://github.com/clojure-emacs/refactor-nrepl/blob/v3.11.0/CHANGELOG.md#3110).
 
