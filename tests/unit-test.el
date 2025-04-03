@@ -367,8 +367,7 @@
             :and-return-value (parseedn-read-str "[\"[bar.alias :as alias]\"]"))
     (cljr--with-clojure-temp-file "foo.cljc"
       (with-point-at "(ns foo)\nalias|"
-        (let ((cljr-slash-uses-suggest-libspec t))
-          (cljr-slash)))
+                     (cljr-slash))
       (expect (buffer-string) :to-equal "(ns foo
   (:require [bar.alias :as alias]))
 alias/")))
@@ -380,8 +379,7 @@ alias/")))
             :and-return-value "[baz.example :as ex]")
     (cljr--with-clojure-temp-file "foo.cljc"
       (with-point-at "(ns foo)\nex|"
-        (let ((cljr-slash-uses-suggest-libspec t))
-          (cljr-slash)))
+                     (cljr-slash))
       (expect (buffer-string) :to-equal "(ns foo
   (:require [baz.example :as ex]))
 ex/")))
@@ -393,8 +391,7 @@ ex/")))
             :and-return-value "[baz.example :as ex :refer [a b c] ]")
     (cljr--with-clojure-temp-file "foo.cljc"
       (with-point-at "(ns foo)\nex|"
-        (let ((cljr-slash-uses-suggest-libspec t))
-          (cljr-slash)))
+                     (cljr-slash))
       (expect (buffer-string) :to-equal "(ns foo
   (:require [baz.example :as ex :refer [a b c] ]))
 ex/"))))
