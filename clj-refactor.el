@@ -2070,11 +2070,18 @@ Filters out existing alias in the namespace, or a global alias
 
 ;;;###autoload
 (defun cljr-slash ()
-  "Inserts `/' as normal, but also checks for common namespace shorthands to require.
-If `cljr-magic-requires' is non-nil, executing this command after one
-of the aliases listed in `cljr-magic-require-namespaces', or any alias
-used elsewhere in the project, will add the corresponding require statement
-to the ns form."
+  "Inserts `/' as normal, and attempts to resolve missing namespace aliases.
+
+If `cljr-magic-requires' is non-nil, it will attempt to resolve any missing
+namespace aliases using the suggest-libspec middleware. Namespace alias
+suggestions are populated from `cljr-magic-require-namespaces', and
+existing alias usage elsewhere in the project. Suggestions are filtered by
+the current language context (clj, cljc, cljs) of the file and the language
+context of the current point. If multiple aliases candidates match, it will
+prompt to select which namespace is intended.
+
+If the namespace alias is unresolved or missing, it will automatically add
+the missing requires for that alias to the current namespace `ns' form."
   (interactive)
   (insert "/")
   (when-let* ((alias-ref (and cljr-magic-requires
